@@ -13,7 +13,7 @@ import com.educandoweb.course.entities.Product;
 import com.educandoweb.course.services.ProductService;
 
 @RestController // Anotacao pra dizer que e um controlador Rest
-@RequestMapping(value = "/product") // Indica caminho
+@RequestMapping(value = "/products") // Indica caminho
 public class ProductResource {
 
 	// Camada de recursos
