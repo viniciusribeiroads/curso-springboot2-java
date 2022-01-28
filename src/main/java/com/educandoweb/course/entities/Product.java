@@ -1,92 +1,102 @@
 package com.educandoweb.course.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.Transient;
 
 @Entity
-@Table(name = "tb_user")
-public class User implements Serializable{
+@Table(name = "tb_product")
+public class Product implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
+	private Integer id;
 	private String name;
-	private String email;
-	private String  phone;
-	private String password;
+	private String description;
+	private Double price;
+	private String imgUrl;
 	
-	@JsonIgnore //para ignorar a associacao de mao dupla, evitando loop
-	@OneToMany(mappedBy = "client")
-	private List<Order> orders = new ArrayList<>();
+	@Transient
+	private Set<Category> categories = new HashSet<>(); //Set nao se repete
 	
-	public User() {
+	
+	public Product() {
 		
 	}
 
-	public User(Long id, String name, String email, String phone, String password) {
+
+	public Product(Integer id, String name, String description, Double price, String imgUrl) {
 		this.id = id;
 		this.name = name;
-		this.email = email;
-		this.phone = phone;
-		this.password = password;
+		this.description = description;
+		this.price = price;
+		this.imgUrl = imgUrl;
 	}
 
-	public Long getId() {
+
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+
+	public void setId(Integer id) {
 		this.id = id;
 	}
+
 
 	public String getName() {
 		return name;
 	}
 
+
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	public String getEmail() {
-		return email;
+
+	public String getDescription() {
+		return description;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	public String getPhone() {
-		return phone;
+
+	public Double getPrice() {
+		return price;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+
+	public void setPrice(Double price) {
+		this.price = price;
 	}
 
-	public String getPassword() {
-		return password;
+
+	public String getImgUrl() {
+		return imgUrl;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
 	}
-	
-	public List<Order> getOrders() {
-		return orders;
+
+
+	public Set<Category> getCategories() {
+		return categories;
 	}
+
 
 	@Override
 	public int hashCode() {
@@ -96,6 +106,7 @@ public class User implements Serializable{
 		return result;
 	}
 
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -104,7 +115,7 @@ public class User implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		Product other = (Product) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -112,7 +123,6 @@ public class User implements Serializable{
 			return false;
 		return true;
 	}
-
 	
 	
 	
